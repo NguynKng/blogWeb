@@ -42,4 +42,6 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
+console.log("hello")
+
 module.exports = app;
