@@ -3,19 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Signup</title>
+    <link rel="stylesheet" href="../css/form.css">
+    <script src="https://kit.fontawesome.com/934bce4726.js" crossorigin="anonymous"></script>
+    <title>ADMIN SIGNUP</title>
 </head>
 <body>
     <div class="container">
         <form class="form-login" action="/admin/signup" method="POST">
             <div class="text-center">
-                <h1>Đăng kí hệ thống</h1>
+                <h1>Đăng kí quản trị hệ thống</h1>
             </div>
             <label for="inputName">Username</label>
             <input type="text" name="username" id="inputName" class="form-control" placeholder="Username" required>
+            <label for="inputEmail">Email</label>
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required>
             <label for="inputPassword">Password</label>
             <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <input type="submit" class="btn" value="Signup"> 
+            <label for="inputPassword2">Confirm password</label>
+            <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="Confirm password" required>
+            <% if (msg) { %>
+            <div class="alert"><%= msg %></div>
+            <% } %>
+            <input type="submit" class="btn" value="Sign up">    
+            <p class="text">Have an account? 
+                <a href="/admin/login" class="signup-link">Login</a>
+            </p>        
         </form>
     </div>
 </body>

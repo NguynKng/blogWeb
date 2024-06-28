@@ -1,0 +1,89 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    max-width: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container{
+    margin: 70px auto;
+    width: 500px;
+    min-height: 400px;
+    border-radius: 20px;
+    background-color: whitesmoke;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.form-login{
+    display: flex;
+    flex-direction: column; 
+    font-size: 20px;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+
+.form-login input{
+    border-radius: 10px;
+    height: 35px;
+    margin: 10px 0;
+    padding: 5px 15px;
+    font-size: 15px;
+    border: none;
+}
+
+.form-login .btn{
+    height: 50px;
+    font-size: 18px;
+    background-color: #fcc603;
+    border: none;
+    font-weight: bold;
+}
+
+.form-login .btn:hover{
+    cursor: pointer;
+}
+
+.form-login .text-center{
+    margin-bottom: 20px;
+}
+
+.form-login h1, .form-login .text, h1{
+    text-align: center;
+}
+
+.form-login p{
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.form-login .signup-link{
+    color: #0390fc;
+    font-weight: bold;
+}
+
+.form-login .form-control:focus{
+    outline: none;
+    border: #03b1fc solid 2px;
+}
+
+.forgot-link{
+    width: fit-content;
+    margin: auto;
+    color: #f06960;
+}
+
+.alert{
+    font-size: 16px;
+    padding: 15px;
+    color: #bd2f2f;
+    border-radius: 5px;
+    background-color: #e09f9f;
+    font-weight: bold;
+}

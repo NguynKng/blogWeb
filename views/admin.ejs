@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+    <script src="https://kit.fontawesome.com/934bce4726.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <% if (!admin) { %>
+    <div class="auth">
+        <div class="login-link"><a href="/admin/login">Login</a></div>
+        <div class="signup-link"><a href="/admin/signup">Signup</a></div>
+    </div>
+    <% } else{ %>
+    <div class="header">
+        <div class="brand">
+            <h1>ADMIN</h1>
+        </div>
+        <div class="admin-info">
+            <i class="fa-solid fa-user"></i>
+            <div class="admin-item">
+                <a class="admin-username" href="#"><%= admin.username %>
+                    <i class="fa-solid fa-sort-down"></i>
+                </a>
+                <ul class="admin-dropdown">
+                    <li><a class="profile-link" href="#">Profile</a></li>
+                    <li><a class="logout-link" href="/admin/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="admin-menu">
+        <div class="menu-item">
+            <a href="/admin/blogs">Manage Posts</a>
+        </div>
+        <div class="menu-item">
+            <a href="/admin/topics">Manage Topics</a>
+        </div>
+        <div class="menu-item">
+            <a href="#">Manage Users</a>
+        </div>
+    </div>
+    <% } %>
+</body>
+</html>

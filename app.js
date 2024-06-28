@@ -3,13 +3,22 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require("express-session")
+const flush = require("connect-flash")
+const flash = require("express-flash")
+
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var videoRouter = require('./routes/video');
 var adminRouter = require('./routes/admin');
 
 var app = express();
+app.use(session({
+    resave: true,
+    saveUninitialized: true,
+    secret: "secret",
+    cookie: { secure: false, maxAge: 14400000 }
+}))
+app.use(flash())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,8 +31,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/video', videoRouter);
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler

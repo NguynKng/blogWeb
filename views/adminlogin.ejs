@@ -3,19 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
+    <link rel="stylesheet" href="../css/form.css">
+    <script src="https://kit.fontawesome.com/934bce4726.js" crossorigin="anonymous"></script>
+    <title>ADMIN LOGIN</title>
 </head>
 <body>
     <div class="container">
         <form class="form-login" action="/admin/login" method="POST">
             <div class="text-center">
-                <h1>Đăng nhập hệ thống</h1>
+                <h1>Đăng nhập quản trị hệ thống</h1>
             </div>
             <label for="inputName">Username</label>
             <input type="text" name="username" id="inputName" class="form-control" placeholder="Username" required>
             <label for="inputPassword">Password</label>
             <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <input type="submit" class="btn" value="Login"> 
+            <% if (msg) { %>
+            <div class="alert"><%= msg %></div>
+            <% } %>
+            <input type="submit" class="btn" value="Login">   
+            <p class="text">Don't have an account? 
+                <a href="/admin/signup" class="signup-link">Sign up</a>
+            </p>
+            <a href="#" class="forgot-link">Forgot password?</a>      
         </form>
     </div>
 </body>

@@ -1,0 +1,213 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    max-width: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+ul{
+    list-style: none;
+}
+
+/*----------HEADER---------*/
+.header{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+    background-color: #152f47;
+}
+
+.brand{
+    color: #3dd1d4;
+}
+
+.header .admin-info{
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-info i, .admin-info .admin-username{
+    margin-left: 10px;
+    color: white;
+}
+
+.admin-item{
+    position: relative;
+    display: inline-block;
+}
+
+.admin-username{
+    display: flex;
+}
+
+.fa-sort-down{
+    align-self: flex-start;
+    cursor: pointer;
+}
+
+.admin-item:hover .admin-dropdown{
+    display: block;
+}
+
+.admin-dropdown{
+    position: absolute;
+    display: none;
+    background-color: white;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.admin-dropdown li{
+    padding: 10px;
+}
+
+.admin-dropdown li .logout-link{
+    color: red;
+}
+
+.admin-dropdown a:hover{
+    color: yellowgreen;
+}
+
+
+
+/*--------Authetication--------*/
+.auth{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 50px auto;
+    border: 1px solid black;
+    width: 300px;
+    height: 100px;
+}
+
+.login-link, .signup-link{
+    padding: 10px 20px;
+    border: 1px solid black;
+}
+
+.login-link:hover, .signup-link:hover{
+    background-color: gray;
+}
+
+.login-link:hover a, .signup-link:hover a{
+    color: white;
+}
+
+
+/*---------EditMenu------------*/
+.edit-menu{
+    width: 400px;
+    display: flex;
+    margin: 30px 220px;
+    justify-content: space-evenly;
+}
+
+.edit-item{
+    background-color: #316391;
+    padding: 15px;
+}
+
+.edit-item a{
+    color: white;
+}
+
+/*--------AddForm--------*/
+.container{
+    padding: 15px;
+    margin: 0 auto;
+    width: 1000px;
+    box-sizing: border-box;
+}
+
+.form-post{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-post .text{
+    text-align: center;
+}
+
+.form-post .form{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 400px;
+}
+
+.form-item{
+    display: flex;
+    flex-direction: column;
+}
+
+.form input, .form textarea{
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.alert{
+    font-size: 16px;
+    padding: 15px;
+    color: #bd2f2f;
+    border-radius: 5px;
+    background-color: #e09f9f;
+    font-weight: bold;
+}
+
+.submit-btn{
+    color: white;
+    width: 100px;
+    background-color: #152f47;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/*-------Manage-----*/
+.table{
+    margin: 0 auto;
+    padding: 20px;
+    width: 1000px;
+    text-align: center;
+}
+
+thead td{
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+tbody td{
+    padding: 20px;
+    border-top: 1px solid black;
+}
+
+/*--------AdminMenu--------*/
+.admin-menu{
+    position: absolute;
+    left: 0;
+    width: 200px;
+    height: 90vh;
+    background-color: rgb(31, 84, 121);
+}
+
+.menu-item{
+    padding: 20px;
+    border-bottom: 1px solid black;
+}
+
+.menu-item a{
+    color: white;
+    font-size: 16px;
+}
