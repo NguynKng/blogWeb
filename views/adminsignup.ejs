@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/form.css">
     <script src="https://kit.fontawesome.com/934bce4726.js" crossorigin="anonymous"></script>
-    <title>ADMIN SIGNUP</title>
+    <title>ADMIN SIGNUP</title> 
+    <script src="/js/scripts.js" defer></script>
 </head>
 <body>
     <div class="container">
-        <form class="form-login" action="/admin/signup" method="POST">
+        <form id="form" class="form-login" action="/admin/signup" method="POST">
             <div class="text-center">
                 <h1>Đăng kí quản trị hệ thống</h1>
             </div>
@@ -22,12 +23,12 @@
             <label for="inputPassword2">Confirm password</label>
             <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="Confirm password" required>
             <% if (msg) { %>
-            <div class="alert"><%= msg %></div>
+            <div id="message" class="alert-hidden" ><%= msg %></div>
             <% } %>
             <input type="submit" class="btn" value="Sign up">    
             <p class="text">Have an account? 
                 <a href="/admin/login" class="signup-link">Login</a>
-            </p>        
+            </p>      
         </form>
     </div>
 </body>

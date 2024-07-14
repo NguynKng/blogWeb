@@ -2,7 +2,6 @@
 var express = require('express');
 var router = express.Router();
 const bcrypt = require('bcrypt')
-const userModel = require("../models/users")
 const jwt = require("jsonwebtoken")
 
 /* GET home page. */

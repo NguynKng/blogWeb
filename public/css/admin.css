@@ -81,7 +81,7 @@ ul{
 
 
 
-/*--------Authetication--------*/
+/*--------Authentication--------*/
 .auth{
     display: flex;
     justify-content: space-evenly;
@@ -143,16 +143,23 @@ ul{
 .form-post .form{
     display: flex;
     justify-content: space-around;
-    flex-direction: column;
-    height: 400px;
+}
+
+.form-items{
+    width: 45%;
 }
 
 .form-item{
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
-.form input, .form textarea{
+.alert, .submit-btn{
+    margin-top: 20px;
+}
+
+.form input, .form textarea, .form select{
     padding: 10px;
     border-radius: 3px;
 }
@@ -172,6 +179,10 @@ ul{
     background-color: #152f47;
     font-size: 15px;
     cursor: pointer;
+}
+
+.ck-editor__editable {
+    height: 400px;
 }
 
 /*-------Manage-----*/

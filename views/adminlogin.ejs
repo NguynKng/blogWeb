@@ -18,7 +18,7 @@
             <label for="inputPassword">Password</label>
             <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
             <% if (msg) { %>
-            <div class="alert"><%= msg %></div>
+            <div id="message" class="alert-hidden"><%= msg %></div>
             <% } %>
             <input type="submit" class="btn" value="Login">   
             <p class="text">Don't have an account? 

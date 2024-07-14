@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+    <script src="https://kit.fontawesome.com/934bce4726.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../css/admin.css">
+    <script>
+        function deleteUser(id) {
+            var c = confirm("Bạn có chắc chắn xóa không?");
+            if (c == true) {
+                fetch('/admin/users/' + id, {
+                    method: "delete"
+                    }).then(function(res){
+                        return res.json();
+                    }).then(function(data){
+                        console.info(data);
+                        var p = document.getElementById(id);
+                        p.style.display = 'none';
+                    }).catch(function(error){
+                        console.error(error);
+                });
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="brand">
+            <h1>ADMIN</h1>
+        </div>
+        <div class="admin-info">
+            <i class="fa-solid fa-user"></i>
+            <div class="admin-item">
+                <a class="admin-username" href="#"><%= admin.username %>
+                    <i class="fa-solid fa-sort-down"></i>
+                </a>
+                <ul class="admin-dropdown">
+                    <li><a class="profile-link" href="#">Profile</a></li>
+                    <li><a class="logout-link" href="/admin/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!----------AdminMenu--------->
+    <div class="admin-menu">
+        <div class="menu-item">
+            <a href="/admin/blogs">Manage Posts</a>
+        </div>
+        <div class="menu-item">
+            <a href="/admin/topics">Manage Topics</a>
+        </div>
+        <div class="menu-item">
+            <a href="/admin/users">Manage Users</a>
+        </div>
+    </div>
+    <!---------EditMenu--------->
+    <div class="edit-menu">
+        <div class="edit-item">
+            <a class="add-link" href="#">Add User</a>
+        </div>
+        <div class="edit-item">
+            <a class="manage-link" href="/admin/users">Manage Users</a>
+        </div>
+    </div>
+    <!------------Manage----------->
+    <table class="table">
+        <div style="text-align:center" class="text">
+            <h1>Manage Users</h1>
+        </div>
+        <thead>
+            <tr>
+                <td>Index</td>
+                <td style="width: 200px">Username</td>
+                <td>Role</td>
+                <td style="width: 300px">Email</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach((user, i) => { %>
+            <tr id="<%= user._id %>">
+                <td><%= i+1 %></td>
+                <td><%= user.username %></td>
+                <td><%= user.role %></td>
+                <td><%= user.email %></td>
+                <td>
+                    <a style="color: green" href="/admin/users/edit?user_id=<%= user._id %>">Edit</a> /
+                    <a style="color: red" href="javascript:;" onclick="deleteUser('<%= user._id %>')">Delete</a>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>

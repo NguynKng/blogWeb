@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+    <script src="https://kit.fontawesome.com/934bce4726.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../css/admin.css">
+</head>
+<body>
+    <!---------Header------->
+    <div class="header">
+        <div class="brand">
+            <h1>ADMIN</h1>
+        </div>
+        <div class="admin-info">
+            <i class="fa-solid fa-user"></i>
+            <div class="admin-item">
+                <a class="admin-username" href="#"><%= admin.username %>
+                    <i class="fa-solid fa-sort-down"></i>
+                </a>
+                <ul class="admin-dropdown">
+                    <li><a class="profile-link" href="#">Profile</a></li>
+                    <li><a class="logout-link" href="/admin/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!----------AdminMenu--------->
+    <div class="admin-menu">
+        <div class="menu-item">
+            <a href="/admin/blogs">Manage Posts</a>
+        </div>
+        <div class="menu-item">
+            <a href="/admin/topics">Manage Topics</a>
+        </div>
+        <div class="menu-item">
+            <a href="/admin/users">Manage Users</a>
+        </div>
+    </div>
+    <!---------EditMenu------->
+    <div class="edit-menu">
+        <div class="edit-item">
+            <a class="add-link" href="/admin/users/add">Add User</a>
+        </div>
+        <div class="edit-item">
+            <a class="manage-link" href="/admin/users">Manage Users</a>
+        </div>
+    </div>
+    <!---------AddForm------->
+    <div class="container">
+        <form class="form-post" method="POST" action="/admin/users/edit?user_id=<%= user._id %>">
+            <div class="text">
+                <h1>Update User</h1>
+            </div>
+            <div class="form">
+                <div class="form-items">
+                    <div class="form-item">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" value="<%= user.username %>">
+                    </div>
+                    <div class="form-item">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" value="<%= user.email %>">
+                    </div>
+                    <div class="form-item">
+                        <label for="role">Role</label>
+                        <select id="role" name="role">
+                            <% roles.forEach(role => { %>
+                            <% var selected = (role.name == user.role) ? "selected" : ""; %>
+                            <option value="<%= role.name %>" <% if (selected) { %> selected <% }; %>><%= role.name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <% if (msg) { %>
+                    <div class="alert"><%= msg %></div>
+                    <% } %>
+                    <input type="submit" value="Update" class="submit-btn">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--CKEditor-->
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
+    <!--Custom Script-->
+    <script src="../../js/scripts.js"></script>
+</body>
+</html>

@@ -6,6 +6,24 @@
     <title>ADMIN</title>
     <script src="https://kit.fontawesome.com/934bce4726.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../css/admin.css">
+    <script>
+        function deleteBlog(id) {
+            var c = confirm("Bạn có chắc chắn xóa không?");
+            if (c == true) {
+                fetch('/admin/blogs/' + id, {
+                    method: "delete"
+                    }).then(function(res){
+                        return res.json();
+                    }).then(function(data){
+                        console.info(data);
+                        var p = document.getElementById(id);
+                        p.style.display = 'none';
+                    }).catch(function(error){
+                        console.error(error);
+                });
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="header">
@@ -34,7 +52,7 @@
             <a href="/admin/topics">Manage Topics</a>
         </div>
         <div class="menu-item">
-            <a href="#">Manage Users</a>
+            <a href="/admin/users">Manage Users</a>
         </div>
     </div>
     <!---------EditMenu--------->
@@ -54,6 +72,7 @@
         <thead>
             <tr>
                 <td>Index</td>
+                <td style="width: 300px">Image</td>
                 <td style="width: 400px">Title</td>
                 <td style="width: 200px">Author</td>
                 <td>Topic</td>
@@ -64,12 +83,15 @@
             <% blogs.forEach((blog, i) => { %>
             <tr id="<%= blog._id %>">
                 <td><%= i+1 %></td>
+                <td>
+                    <img src="/<%= blog.images[0].path %>" alt="" style="width: 100px; height: 100px; object-fit: cover">
+                </td>
                 <td><%= blog.title %></td>
                 <td><%= blog.author %></td>
                 <td><%= blog.topic %></td>
                 <td>
                     <a style="color: green" href="/admin/blogs/edit?post_id=<%= blog._id %>">Edit</a> /
-                    <a style="color: red" href="#">Delete</a>
+                    <a style="color: red" href="javascript:;" onclick="deleteBlog('<%= blog._id %>')">Delete</a>
                 </td>
             </tr>
             <% }); %>

@@ -79,11 +79,19 @@ a{
     color: #f06960;
 }
 
-.alert{
+.alert-hidden{
     font-size: 16px;
     padding: 15px;
     color: #bd2f2f;
     border-radius: 5px;
     background-color: #e09f9f;
     font-weight: bold;
+}
+
+#form #message.hidden {
+    display: none;
+}
+
+#form #message.active {
+    display: block;
 }
