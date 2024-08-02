@@ -6,6 +6,7 @@ const blogModel = require('../models/blog');
 const topicModel = require('../models/topic');
 const roleModel = require("../models/role")
 const imgModel = require('../models/image')
+const mongoose = require('mongoose');
 const multer = require('multer')
 const fs = require('fs').promises;
 const { v4: uuidv4 } = require('uuid');
@@ -25,7 +26,7 @@ const upload = multer({
     fileFilter: (req, file, cb) => {
         checkFileType(file, cb);
     }
-}).array('images',10);
+}).array('images', 10);
 
 function checkFileType(file, cb) {
     const filetypes = /jpeg|jpg|png|gif/;
@@ -74,12 +75,49 @@ async function takeBlog(){
     }
 }
 
-async function takeBlogbyID(id){
-    try{
-        return await blogModel.findOne({_id: id})
-    }catch(err){
-        console.error(err)
-        return null
+async function takeBlogbyID(postId) {
+    try {
+
+        if (!mongoose.Types.ObjectId.isValid(postId)) {
+            throw new Error('Invalid blog post ID');
+        }
+
+        const blogPostWithImages = await blogModel.aggregate([
+            {
+                $match: { _id: new mongoose.Types.ObjectId(postId) } // Filter by specific blog post ID
+            },
+            {
+                $lookup: {
+                    from: 'images', // The collection to join with
+                    localField: 'imageID', // Field from the BlogPost collection
+                    foreignField: '_id', // Field from the Image collection
+                    as: 'images' // The name of the new array field to add to the BlogPost documents
+                }
+            },
+            {
+                $addFields: {
+                    images: {
+                        $map: {
+                            input: "$images",
+                            as: "image",
+                            in: {
+                                _id: "$$image._id",
+                                imgID: "$$image.imgID",
+                                filename: "$$image.filename",
+                                path: "$$image.path",
+                                uploadedAt: "$$image.uploadedAt",
+                                __v: "$$image.__v"
+                            }
+                        }
+                    }
+                }
+            }
+        ]);
+
+        return blogPostWithImages[0]; // Return the single blog post object
+    } catch (err) {
+        console.error('Error fetching blog post with images:', err);
+        throw err;
     }
 }
 
@@ -231,6 +269,7 @@ router.get("/blogs/edit", async function(req, res, next){
         res.redirect("/admin/login")
     }
     const post_id = req.query.post_id
+    //console.log(await takeBlogbyID(post_id))
     res.render("editblog", {
         admin: req.session.admin, 
         blog: await takeBlogbyID(post_id), 
@@ -239,37 +278,92 @@ router.get("/blogs/edit", async function(req, res, next){
     })
 })
 
-router.post("/blogs/edit", async function(req, res, next){
+router.post("/blogs/edit", upload, async function(req, res, next){
+    const post_id = {
+        _id: req.query.post_id
+    }
+
+    const { title, content, topic } = req.body;
+
+    const newImages = req.files;
+
     try{
-        const post_id = {
-            _id: req.query.post_id
+        const post = await blogModel.findById(post_id._id).populate('imageID');
+        if (!post) {
+            return res.status(404).send('Blog post not found');
         }
-        const curBlog = await takeBlogbyID(post_id._id)
-        const updateData = {
-            $set: {
-                title: req.body.title,
-                body: req.body.content,
-                topic: req.body.topic,
-                image: req.body.image
+        const existingTitle = await blogModel.findOne({title: title})
+        if(!existingTitle || title == post.title){
+            if (newImages && newImages.length > 0) {
+
+                // Upload new image
+                const imagePromises = newImages.map(file => {
+                    const newImage = new imgModel({
+                        imgID: uuidv4(),
+                        filename: file.filename,
+                        path: `images/${file.filename}`
+                    });
+                    return newImage.save();
+                });
+                const savedImages = await Promise.all(imagePromises);
+                const imageIds = savedImages.map(image => image._id);
+                await blogModel.updateOne(
+                    { _id: post_id },
+                    { $push: { imageID: { $each: imageIds } } }
+                );
             }
-        }
-        const existingTitle = await blogModel.findOne({title: req.body.title})
-        if(existingTitle){
-            if(req.body.title == curBlog.title){
-                const updatedBlog = await blogModel.updateOne(post_id, updateData)
-                res.redirect("/admin/blogs")
-            }
+
+            //Replace new data blog
+            post.title = title;
+            post.body = content;
+            post.topic = topic;
+
+            // Save the updated post
+            await post.save();
+            res.redirect("/admin/blogs")
+        } else {
             res.render("editblog", {
                 admin: req.session.admin, 
                 blog: await takeBlogbyID(post_id._id), 
                 topics: await takeTopic(),
                 msg: "Title is already exist! Please choose another."})
-        }else{
-            const updatedBlog = await blogModel.updateOne(post_id, updateData)
-            res.redirect("/admin/blogs")
         }
     }catch(err){
-        console.log(err)
+        console.error('Error updating blog post with images:', err);
+        res.status(500).send('Internal server error');
+    }
+});
+
+/*-------------DELETE-IMAGE------------*/
+router.delete("/blogs/edit/:post_id/delete-image/:imgId", async function (req, res, next){
+    const post_id = req.params.post_id
+    const imageId = req.params.imgId
+    try {
+        // Find the image in the database
+        const image = await imgModel.findById(imageId);
+
+        if (!image) {
+            return res.status(404).send('Image not found');
+        } 
+
+        const imagePath = image.path;
+
+        // Delete the image file from the filesystem
+        try{
+            await fs.unlink(`public/${imagePath}`);
+        } catch(err){
+            console.error('Error deleting image file:', err);
+        }
+        await blogModel.updateOne(
+            { _id: post_id },
+            { $pull: { imageID: new mongoose.Types.ObjectId(imageId)}}
+        )
+        await imgModel.deleteOne({_id: imageId})
+        console.log('Deleted image file:', imagePath);
+        res.status(200).send('Image deleted successfully');
+    } catch (err) {
+        console.error('Error deleting image:', err);
+        res.status(500).send('Internal server error');
     }
 })
 
