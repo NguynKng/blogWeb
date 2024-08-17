@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADMIN</title>
     <script src="https://kit.fontawesome.com/934bce4726.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
     <% if (!admin) { %>
-    <div class="auth">
+    <div class="authenticate">
         <div class="login-link"><a href="/admin/login">Login</a></div>
         <div class="signup-link"><a href="/admin/signup">Signup</a></div>
     </div>
     <% } else{ %>
+    <!----------------Header--------------->
     <div class="header">
         <div class="brand">
             <h1>ADMIN</h1>
@@ -31,6 +32,7 @@
             </div>
         </div>
     </div>
+    <!----------------Admin-Menu--------------->
     <div class="admin-menu">
         <div class="menu-item">
             <a href="/admin/blogs">Manage Posts</a>

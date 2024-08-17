@@ -1,73 +1,95 @@
-//require("../.env").config()
 var express = require('express');
 var router = express.Router();
 const bcrypt = require('bcrypt')
 const jwt = require("jsonwebtoken")
+const modules = require('../dao/dao')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('index');
+router.get('/', async function(req, res, next) {
+    try {
+        const { q } = req.query;
+        let topic = "Khuyến mại Tên miền, Hosting, VPS/Server"
+        
+        if(q || q == ""){
+            topic = `Kết quả tìm kiếm: ${q}`
+        }
+        
+        const blogs = await modules.getBlog(q)
+        const new_blogs = blogs.slice(0,5)
+        const good_blogs = blogs.slice(0,5)
+        return res.render('index', {
+            blogs: blogs, 
+            new_blogs: new_blogs,
+            good_blogs: good_blogs,
+            topic: topic
+        });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send('Internal server error');
+    }
 });
 
-// router.get('/signup', function(req, res, next){
-//     res.render('signup')
-// })
+/* GET about page. */
+router.get('/:topic', async function(req, res, next) {
+    try{
+        let topic = req.params.topic.toLowerCase();
+        const { q } = req.query
 
-// router.get('/login', function(req, res, next){
-//     res.render('login')
-// })
+        // Redirect to admin page if topic is 'admin'
+        if (topic === "admin"){
+            return res.render("admin", {admin: req.session.admin})
+        }
 
-// router.post('/signup', async function(req, res, next){
+        // Redirect to homepage with query if 'q' is present
+        if (q || q === ""){
+            return res.redirect(`/?q=${encodeURIComponent(q)}`);
+        }
 
-//     const data = {
-//         username: req.body.username,
-//         email: req.body.email,
-//         password: req.body.password
-//     }
+        topic = topic.replace(/-/g, ' ')
 
-//     const existingUser = await userModel.findOne({username:data.username})
+        // Fetch blog posts based on the topic
+        const blogs = await modules.getBlog(null, topic)
+        const new_blogs = blogs.slice(0, 5)
+        const good_blogs = blogs.slice(0, 5)
 
-//     if(existingUser){
-//         res.send("Username is already exist.")
-//     }else{
-//         const saltRounds = 10;
-//         const hashedPassword = await bcrypt.hash(data.password, saltRounds)
-//         data.password = hashedPassword
-//         bcrypt.compare(req.body.password2, data.password, async function(err, result){
-//             if(err){
-//                 res.send("Error comparing password2")
-//                 return
-//             }
-//             if(result){
-//                 const userData = await userModel.insertMany(data)
-//                 console.log(userData)
-//                 return res.redirect('/login')
-//             }else{
-//                 res.send('Passwords do not match! Authentication failed.')
-//             }
-//         })
-//     }
-// })
+        // Fetch topic name from database
+        const topic_results = await modules.getTopic(topic)
+        const topic_name = topic_results[0]?.name
 
-// router.post('/login', async function(req, res, next){
-//     try{
-//         const user = await userModel.findOne({username: req.body.username})
-//         //const username = {username: user.username}
-//         //const token = jwt.sign(username, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "1h"})
-//         if(!user){
-//             res.status(401).send("Username not found.")
-//         }else{
-//             const checkPassword = await bcrypt.compare(req.body.password, user.password)
-//             if (checkPassword){
-//                 //console.log(user)
-//                 return res.redirect("/")
-//             }else{
-//                 res.status(401).send("Password is incorrect. Please try again.")
-//             }
-//         }
-//     }catch{
-//         res.status(401).send("Wrong detail.")
-//     }
-// })
+        return res.render("index", {
+            blogs: blogs,
+            new_blogs: new_blogs,
+            good_blogs: good_blogs,
+            topic: topic_name
+        })
+    } catch(err){
+        console.error(err);
+        return res.status(500).send('Internal server error');
+    }
+});
+
+router.get("/:topic/posts/:post_id", async function(req, res, next) {
+    try{
+        const { q } = req.query
+        if (q || q === ""){
+            return res.redirect(`/?q=${encodeURIComponent(q)}`);
+        }
+        const { post_id, topic } = req.params
+        const post = await modules.getBlogbyID(post_id)
+        const posts = await modules.getBlog()
+        const new_blogs = posts.slice(0, 5)
+        const good_blogs = posts.slice(0, 5)
+        console.log(post._id)
+        return res.render('detail_post', {
+            post: post,
+            new_blogs: new_blogs,
+            good_blogs: good_blogs,
+            title: post.title
+        })
+    } catch(err){
+        console.error(err);
+        return res.status(500).send('Internal server error');
+    }
+});
 
 module.exports = router;

@@ -5,25 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADMIN</title>
     <script src="https://kit.fontawesome.com/934bce4726.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../css/admin.css">
-    <script>
-        function deleteTopic(id) {
-            var c = confirm("Bạn có chắc chắn xóa không?");
-            if (c == true) {
-                fetch('/admin/topics/' + id, {
-                    method: "delete"
-                    }).then(function(res){
-                        return res.json();
-                    }).then(function(data){
-                        console.info(data);
-                        var p = document.getElementById(id);
-                        p.style.display = 'none';
-                    }).catch(function(error){
-                        console.error(error);
-                });
-            }
-        }
-    </script>
+    <script src="/js/scripts.js"></script>
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
     <div class="header">
@@ -55,39 +38,50 @@
             <a href="/admin/users">Manage Users</a>
         </div>
     </div>
-    <!---------EditMenu--------->
-    <div class="edit-menu">
-        <div class="edit-item">
-            <a class="add-link" href="/admin/topics/add">Add Topic</a>
+    <!------------Container----------->
+    <div class="container">
+        <!---------Edit-Menu--------->
+        <div class="edit-menu">
+            <div class="edit-item">
+                <a class="add-link" href="/admin/topics/add">Add Topic</a>
+            </div>
+            <div class="edit-item">
+                <a class="manage-link" href="/admin/topics">Manage Topics</a>
+            </div>
         </div>
-        <div class="edit-item">
-            <a class="manage-link" href="/admin/topics">Manage Topics</a>
-        </div>
+        <!---------Table-Content--------->
+        <table class="table">
+            <div class="text">
+                <h1>Manage Topics</h1>
+            </div>
+            <div class="search-bar">
+                <form>
+                    <input type="text" name="q" id="q" placeholder="Find topic...">
+                    <button type="submit" class="search-button">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
+            <thead>
+                <tr>
+                    <td>Index</td>
+                    <td style="width: 400px">Name</td>
+                    <td style="width: 200px">Action</td>
+                </tr>
+            </thead>
+            <tbody>
+                <% topics.forEach((topic, i) => { %>
+                <tr id="<%= topic._id %>">
+                    <td><%= i+1 %></td>
+                    <td><%= topic.name %></td>
+                    <td>
+                        <a style="color: green" href="/admin/topics/edit?topic_id=<%= topic._id %>">Edit</a> /
+                        <a style="color: red" href="javascript:;" onclick="deleteTopic('<%= topic._id %>')">Delete</a>
+                    </td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
     </div>
-    <!------------Manage----------->
-    <table class="table">
-        <div style="text-align:center" class="text">
-            <h1>Manage Topics</h1>
-        </div>
-        <thead>
-            <tr>
-                <td>Index</td>
-                <td style="width: 400px">Name</td>
-                <td style="width: 200px">Action</td>
-            </tr>
-        </thead>
-        <tbody>
-            <% topics.forEach((topic, i) => { %>
-            <tr id="<%= topic._id %>">
-                <td><%= i+1 %></td>
-                <td><%= topic.name %></td>
-                <td>
-                    <a style="color: green" href="/admin/topics/edit?topic_id=<%= topic._id %>">Edit</a> /
-                    <a style="color: red" href="javascript:;" onclick="deleteTopic('<%= topic._id %>')">Delete</a>
-                </td>
-            </tr>
-            <% }); %>
-        </tbody>
-    </table>
 </body>
 </html>

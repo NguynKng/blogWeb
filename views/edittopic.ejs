@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADMIN</title>
     <script src="https://kit.fontawesome.com/934bce4726.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../css/admin.css">
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
     <!---------Header------->
@@ -38,33 +38,34 @@
             <a href="/admin/users">Manage Users</a>
         </div>
     </div>
-    <!---------EditMenu------->
-    <div class="edit-menu">
-        <div class="edit-item">
-            <a class="add-link" href="/admin/topics/add">Add Topic</a>
-        </div>
-        <div class="edit-item">
-            <a class="manage-link" href="/admin/topics">Manage Topics</a>
-        </div>
-    </div>
-    <!---------AddForm------->
+    <!------------Container----------->
     <div class="container">
+        <!---------Edit-Menu------->
+        <div class="edit-menu">
+            <div class="edit-item">
+                <a class="add-link" href="/admin/topics/add">Add Topic</a>
+            </div>
+            <div class="edit-item">
+                <a class="manage-link" href="/admin/topics">Manage Topics</a>
+            </div>
+        </div>
+        <!---------Form------->
         <form class="form-post" method="POST" action="/admin/topics/edit?topic_id=<%= topic._id %>">
             <div class="text">
                 <h1>Edit Topic</h1>
             </div>
             <div class="form">
-                <div class="form-items">
+                <div class="form-1">
                     <div class="form-item">
                         <label for="name">Name</label>
                         <input type="text" id="name" value="<%= topic.name %>" name="name" placeholder="Topic...">
                     </div>
-                    <% if (msg) { %>
-                    <div class="alert"><%= msg %></div>
-                    <% } %>
-                    <input type="submit" value="Update" class="submit-btn">
                 </div>
             </div>
+            <% if (msg) { %>
+            <div class="alert"><%= msg %></div>
+            <% } %>
+            <input type="submit" value="Update" class="submit-btn">
         </form>
     </div>
 </body>

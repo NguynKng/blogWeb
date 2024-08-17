@@ -4,12 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require("express-session")
-const flush = require("connect-flash")
-const flash = require("express-flash")
+// const flush = require("connect-flash")
+// const flash = require("express-flash")
 
 
 var indexRouter = require('./routes/index');
-var adminRouter = require('./routes/admin');
+var adminRouter = require('./routes/admin')
 
 var app = express();
 app.use(session({
@@ -18,7 +18,7 @@ app.use(session({
     secret: "secret",
     cookie: { secure: false, maxAge: 14400000 }
 }))
-app.use(flash())
+// app.use(flash())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://kit.fontawesome.com/934bce4726.js" crossorigin="anonymous"></script>
+    <script src="/js/scripts.js"></script>
+    <title>BinBlog</title>
+</head>
+<body>
+    <div class="header">
+        <div class="brand">
+            <i class="fa-regular fa-hand"></i>
+            <h1>Bin<span style="color: #31d467">blog</span></h1>
+        </div>
+        <div class="ads">
+            <a href="#"><img src="/images/avatar/ads.png" alt="Advertisement"></a>
+        </div>
+        <div class="admin-site">
+            <a href="/admin">Admin-Site</a>
+        </div>
+    </div>
+    <nav class="navbar">
+        <div class="nav-item">
+            <ul>
+                <li><a href="/domain">TÊN MIỀN</a></li>
+                <li><a href="/hosting">HOSTING<i class="fa-solid fa-sort-down"></i></a>
+                    <ul class="dropdown">
+                        <li><a href="/hawk-host">Hawk Host</a></li>
+                        <li><a href="/stablehost">StableHost</a></li>
+                        <li><a href="/azdigi">AZDIGI</a></li>
+                    </ul>
+                </li>
+                <li><a href="/server">SERVER<i class="fa-solid fa-sort-down"></i></a>
+                    <ul class="dropdown">
+                        <li><a href="/vultr">Vultr</a></li>
+                        <li><a href="/ovhcloud">OVHcloud</a></li>
+                        <li><a href="/linode">Linode</a></li>
+                    </ul>
+                </li>
+                <li><a href="/wordpress">WORDPRESS</a></li>
+                <li><a href="/wordpress">KINH NGHIỆM<i class="fa-solid fa-sort-down"></i></a>
+                    <ul class="dropdown">
+                        <li><a href="/series">Series hướng dẫn</a></li>
+                        <li><a href="/knowledge">Kiến thức căn bản</a></li>
+                    </ul>
+                </li>
+                <li><a href="/price-board">BẢNG GIÁ</a></li>
+                <li><a href="/news">TIN TỨC</a></li>
+                <li><a href="/introduce">GIỚI THIỆU</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="content">
+            <div class="content-left">
+                <div class="post-path">
+                    <span style="font-size: 14px;">
+                        <a href="/">Bin blog</a>
+                        <span> >> </span>
+                        <a href="/<%= post.topic.toLowerCase() %>"><%= post.topic %></a>
+                        <span> >> </span>
+                        <span><%= post.title %></span>
+                    </span>
+                </div>
+                <div class="post-title">
+                    <h2><%= title %></h2>
+                </div>
+                <div class="post-meta">
+                    <div class="post-meta-item">
+                        <i class="fa-regular fa-clock"></i>
+                        <p>2 tuần trước</p>
+                    </div>
+                    <div class="post-meta-item">
+                        <i class="fa-solid fa-user"></i>
+                        <p><%= post.author %></p>
+                    </div>
+                    <div class="post-meta-item">
+                        <i class="fa-solid fa-eye"></i>
+                        <p>1.230 lượt xem</p>
+                    </div>
+                    <div class="post-meta-item">
+                        <i class="fa-solid fa-comment"></i>
+                        <p>44 bình luận</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="post-body">
+                    <%- post.body %>
+                </div>
+            </div>
+            <div class="content-right">
+                <div class="content-right-item">
+                    <div class="content-right-title">
+                        <h2>Top 3 Hosting Tốt Nhất</h2>
+                    </div>
+                    <div class="content-right-thumbnail">
+                        <a href="#">
+                            <img src="/images/avatar/Hosting-tot-nhat.jpg">
+                        </a>
+                    </div>
+                </div>
+                <div class="content-right-item">
+                    <div class="content-right-title">
+                        <h2>Tìm kiếm</h2>
+                    </div>
+                    <div class="content-right-search">
+                        <form>
+                            <input type="text" name="q" id="q" placeholder="Search">
+                            <button type="submit" class="search-button">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="content-right-item">
+                    <div class="content-right-title">
+                        <h2>Comment mới nhất</h2>
+                    </div>
+                    <div class="list-comment">
+                        <div class="comment-box">
+                            <div class="user-meta">
+                                <div class="user-info">
+                                    <img src="/images/avatar/messi.jfif" alt="User avatar"> <!-- Display the user avatar -->
+                                    <span class="name">Kiên</span>
+                                </div>
+                                <div class="comment-time">
+                                    <span>2 ngày trước</span>
+                                </div>
+                            </div>
+                            <div class="user-comment">
+                                <p>Đây là một bình luận mới nhất</p>
+                            </div>
+                            <div class="comment-desc">
+                                <p><span>Trong bài: </span>Mừng Sinh Nhật 9 tuổi - AZDIGI giảm..</p>
+                            </div>
+                        </div>
+                        <div class="comment-box">
+                            <div class="user-meta">
+                                <div class="user-info">
+                                    <img src="/images/avatar/yasuo.jpg" alt="User avatar"> <!-- Display the user avatar -->
+                                    <span class="name">Kiên</span>
+                                </div>
+                                <div class="comment-time">
+                                    <span>2 ngày trước</span>
+                                </div>
+                            </div>
+                            <div class="user-comment">
+                                <p>Để mình xem thử, còn thanh toán được thì mình hỗ trợ bạn thanh toán trực tiếp AZDIGI chứ mình ...</p>
+                            </div>
+                            <div class="comment-desc">
+                                <p><span>Trong bài: </span>Mừng Sinh Nhật 9 tuổi - AZDIGI giảm..</p>
+                            </div>
+                        </div>
+                        <div class="comment-box">
+                            <div class="user-meta">
+                                <div class="user-info">
+                                    <img src="/images/avatar/cr7.jfif" alt="User avatar"> <!-- Display the user avatar -->
+                                    <span class="name">Kiên</span>
+                                </div>
+                                <div class="comment-time">
+                                    <span>2 ngày trước</span>
+                                </div>
+                            </div>
+                            <div class="user-comment">
+                                <p>Mình dư mấy gói, bác nào cần thì inbox, mình k thu phí gì cả, Zalo 0981 660 1 một ...</p>
+                            </div>
+                            <div class="comment-desc">
+                                <p><span>Trong bài: </span>Mừng Sinh Nhật 9 tuổi - AZDIGI giảm..</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-right-item">
+                    <div class="content-right-title">
+                        <h2>Hosting nên dùng</h2>
+                    </div>
+                    <div class="content-right-thumbnail">
+                        <a href="#">
+                            <img src="/images/avatar/hosting-should-use.png">
+                        </a>
+                    </div>
+                </div>
+                <div class="content-right-item">
+                    <div class="content-right-title">
+                        <h2>VPS nên dùng</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="good-posts">
+        <div class="good-posts-content">
+            <div class="good-posts-title">
+                <a href="#">Bài hay nên đọc</a>
+            </div>
+            <div class="list-good">
+                <i class="fa-solid fa-circle-chevron-left"></i>
+                <% good_blogs.forEach(blog => { %>
+                <div class="good-post">
+                    <div class="good-post-item">
+                        <div class="good-post-thumbnail">
+                            <a href="#">
+                                <img src="/<%= blog.thumbnail %>" alt="Thumbnail image"> <!-- Display the first image -->
+                            </a>
+                        </div>
+                        <div class="good-post-title">
+                            <a href="#"><%= blog.title %></a>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+                <i class="fa-solid fa-circle-chevron-right"></i>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-items">
+            <div class="introduce">
+                <h2>Giới thiệu</h2>
+                <p><span style="font-weight: bold;">Canh Me</span> là blog cá nhân cung cấp thông tin khuyến mại, coupon giảm giá dành cho Tên miền, Hosting, VPS/Server và WordPress.</p>
+                <div class="social">
+                    <i class="fa-brands fa-square-facebook"></i>
+                    <i class="fa-brands fa-square-youtube"></i>
+                    <i class="fa-brands fa-square-twitter"></i>
+                    <i class="fa-brands fa-square-instagram"></i>
+                </div>
+            </div>
+            <div class="newest">
+                <h2>Bài viết mới nhất</h2>
+                <div class="blog-list">
+                    <% new_blogs.forEach(blog => { %>
+                    <div class="blog-item">
+                        <div class="thumbnail">
+                            <a href="#">
+                                <img src="/<%= blog.thumbnail %>" alt="Post Image"> <!-- Display the first image -->
+                            </a>
+                        </div>
+                        <div class="title">
+                            <a href="#"><%= blog.title %></a>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+            <div class="top-comment">
+                <h2>Top comment tháng</h2>
+                <div class="comment-list">
+                    <div class="comment-item">
+                        <div class="rank" style="background-color: red; width: 20px; height: 20px; text-align: center;">1</div>
+                        <div class="avatar">
+                            <a href="#">
+                                <img src="/images/avatar/9332632.jpg">
+                            </a>
+                        </div>
+                        <div class="user-name">
+                            <a href="#">Faker (4)</a>
+                        </div>
+                    </div>
+                    <div class="comment-item">
+                        <div class="rank" style="background-color: green; width: 20px; height: 20px; text-align: center;">2</div>
+                        <div class="avatar">
+                            <a href="#">
+                                <img src="/images/avatar/cr7.jfif">
+                            </a>
+                        </div>
+                        <div class="user-name">
+                            <a href="#">Ronaldo (4)</a>
+                        </div>
+                    </div>
+                    <div class="comment-item">
+                        <div class="rank" style="background-color: blue; width: 20px; height: 20px; text-align: center;">3</div>
+                        <div class="avatar">
+                            <a href="#">
+                                <img src="/images/avatar/haein.jfif">
+                            </a>
+                        </div>
+                        <div class="user-name">
+                            <a href="#">Haein (3)</a>
+                        </div>
+                    </div>
+                    <div class="comment-item">
+                        <div class="rank" style="background-color: orange; width: 20px; height: 20px; text-align: center;">4</div>
+                        <div class="avatar">
+                            <a href="#">
+                                <img src="/images/avatar/yasuo.jpg">
+                            </a>
+                        </div>
+                        <div class="user-name">
+                            <a href="#">Yasuo (2)</a>
+                        </div>
+                    </div>
+                    <div class="comment-item">
+                        <div class="rank" style="background-color: black; width: 20px; height: 20px; text-align: center;">5</div>
+                        <div class="avatar">
+                            <a href="#">
+                                <img src="/images/avatar/messi.jfif">
+                            </a>
+                        </div>
+                        <div class="user-name">
+                            <a href="#">Messi (2)</a>
+                        </div>
+                    </div>
+                    <div class="comment-item">
+                        <div class="rank" style="background-color: pink; width: 20px; height: 20px; text-align: center;">6</div>
+                        <div class="avatar">
+                            <a href="#">
+                                <img src="/images/avatar/jisoo.jfif">
+                            </a>
+                        </div>
+                        <div class="user-name">
+                            <a href="#">Jisoo (1)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>@ 2024 <span style="font-weight: bold;">Bin Blog</span>. Hosted by <span style="color: white; font-size: 16px;">Hawk Host Cloud Compute.</span></p>
+        <p>Made with <i style="color: red;" class="fa-solid fa-heart fa-beat"></i> in HCM</p>
+    </footer>
+</body>
+</html>

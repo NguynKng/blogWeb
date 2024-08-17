@@ -17,11 +17,14 @@ ul{
 
 /*----------HEADER---------*/
 .header{
+    position: fixed;
     display: flex;
     justify-content: space-between;
     width: 100%;
     padding: 20px;
     background-color: #152f47;
+    top: 0;
+    z-index: 2;
 }
 
 .brand{
@@ -79,10 +82,34 @@ ul{
     color: yellowgreen;
 }
 
+/*--------AdminMenu--------*/
+.admin-menu{
+    position: fixed;
+    left: 0;
+    width: 200px;
+    height: 100vh;
+    background-color: rgb(31, 84, 121);
+    z-index: 1;
+    padding-top: 80px;
+}
 
+.menu-item{
+    padding: 20px;
+    border-bottom: 1px solid black;
+}
 
-/*--------Authentication--------*/
-.auth{
+.menu-item a{
+    color: white;
+    font-size: 16px;
+    transition: all 0.5s ease;
+}
+
+.menu-item a:hover{
+    color: #78f542;
+}
+
+/*--------Authenticate--------*/
+.authenticate{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -105,57 +132,103 @@ ul{
     color: white;
 }
 
-
-/*---------EditMenu------------*/
+/*-------Edit-Menu-----*/
 .edit-menu{
-    width: 400px;
+    position: absolute;
     display: flex;
-    margin: 30px 220px;
-    justify-content: space-evenly;
+    gap: 40px;
 }
 
 .edit-item{
     background-color: #316391;
     padding: 15px;
+    border-radius: 5px;
 }
 
 .edit-item a{
+    transition: all 0.5s ease;
     color: white;
 }
 
-/*--------AddForm--------*/
-.container{
-    padding: 15px;
-    margin: 0 auto;
-    width: 1000px;
-    box-sizing: border-box;
+.edit-item a:hover{
+    color: #78f542;
+    
 }
 
+/*-------Container-----*/
+.container{
+    position: absolute;
+    padding: 20px;
+    width: 1200px;
+    top: 100px;
+    right: 70px;
+}
+
+.text{
+    text-align: center;
+}
+
+/*-------Table-Content-----*/
+table{
+    margin: 10px auto;
+    text-align: center;
+}
+
+.search-bar{
+    display: flex;
+    justify-content: right;
+    margin-right: 50px;
+}
+
+.search-bar input{
+    width: 250px;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-bar .search-button{
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+thead td{
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+tbody td{
+    padding: 20px;
+    border-top: 1px solid black;
+}
+
+/*-------Form-----*/
 .form-post{
     display: flex;
     flex-direction: column;
-}
-
-.form-post .text{
-    text-align: center;
+    padding: 10px;
 }
 
 .form-post .form{
     display: flex;
     justify-content: space-around;
+    padding: 10px;
 }
 
-.form-items{
-    width: 45%;
+.form-1{
+    width: 25%;
+}
+
+.form-2{
+    width: 70%;
 }
 
 .form-item{
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
-}
-
-.alert, .submit-btn{
     margin-top: 20px;
 }
 
@@ -165,6 +238,7 @@ ul{
 }
 
 .alert{
+    margin-top: 20px;
     font-size: 16px;
     padding: 15px;
     color: #bd2f2f;
@@ -174,21 +248,21 @@ ul{
 }
 
 .submit-btn{
+    margin: 20px auto;
     color: white;
-    width: 100px;
+    padding: 10px;
+    width: 280px;
     background-color: #152f47;
     font-size: 15px;
+    border-radius: 5px;
     cursor: pointer;
-}
-
-.ck-editor__editable {
-    height: 400px;
 }
 
 .image-preview {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; /* Space between images */
+    gap: 10px;
+    margin-top: 10px;
 }
 
 .image-container{
@@ -212,42 +286,8 @@ ul{
     cursor: pointer;
 }
 
-/*-------Manage-----*/
-.table{
-    margin: 0 auto;
-    padding: 20px;
-    width: 1000px;
-    text-align: center;
-}
-
-thead td{
-    padding: 20px;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-tbody td{
-    padding: 20px;
-    border-top: 1px solid black;
-}
-
-/*--------AdminMenu--------*/
-.admin-menu{
-    position: absolute;
-    left: 0;
-    width: 200px;
-    height: 90vh;
-    background-color: rgb(31, 84, 121);
-}
-
-.menu-item{
-    padding: 20px;
-    border-bottom: 1px solid black;
-}
-
-.menu-item a{
-    color: white;
-    font-size: 16px;
+.cke_notifications_area {
+    display: none !important;
 }
 
 /* Modal styling */
@@ -271,35 +311,21 @@ tbody td{
     max-width: 750px;
 }
 
-/* Caption of Modal Image */
-#caption {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    color: #ccc;
-    padding: 10px 0;
-    height: 150px;
+/* Set Thumbnail button */
+.thumbnail-btn{
+    position: absolute;
+    padding: 10px;
+    top: 20px;
+    right: 100px;
+    color: black;
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
-/* Add Animation
-#modalImage, #caption {
-    -webkit-animation-name: zoom    ;
-    -webkit-animation-duration: 0.6s;
-    animation-name: zoom;
-    animation-duration: 0.6s;
-} */
-
-/* @-webkit-keyframes zoom {
-    from {transform:scale(0)}
-    to {transform:scale(1)}
+.thumbnail-btn:hover, .thumbnail-btn:focus{
+    opacity: 0.7;
 }
-
-@keyframes zoom {
-    from {transform:scale(0)}
-    to {transform:scale(1)}
-} */
 
 /* The Close Button */
 .close {
@@ -312,8 +338,7 @@ tbody td{
     transition: 0.3s;
 }
 
-.close:hover,
-.close:focus {
+.close:hover, .close:focus {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;

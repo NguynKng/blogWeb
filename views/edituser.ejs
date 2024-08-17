@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADMIN</title>
     <script src="https://kit.fontawesome.com/934bce4726.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../css/admin.css">
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
     <!---------Header------->
@@ -38,23 +38,24 @@
             <a href="/admin/users">Manage Users</a>
         </div>
     </div>
-    <!---------EditMenu------->
-    <div class="edit-menu">
-        <div class="edit-item">
-            <a class="add-link" href="/admin/users/add">Add User</a>
-        </div>
-        <div class="edit-item">
-            <a class="manage-link" href="/admin/users">Manage Users</a>
-        </div>
-    </div>
-    <!---------AddForm------->
+    <!---------Container------->
     <div class="container">
+        <!---------Edit-Menu------->
+        <div class="edit-menu">
+            <div class="edit-item">
+                <a class="add-link" href="/admin/users/add">Add User</a>
+            </div>
+            <div class="edit-item">
+                <a class="manage-link" href="/admin/users">Manage Users</a>
+            </div>
+        </div>
+        <!---------Form------>
         <form class="form-post" method="POST" action="/admin/users/edit?user_id=<%= user._id %>">
             <div class="text">
                 <h1>Edit User</h1>
             </div>
             <div class="form">
-                <div class="form-items">
+                <div class="form-1">
                     <div class="form-item">
                         <label for="username">Username</label>
                         <input type="text" id="username" name="username" value="<%= user.username %>">
@@ -72,18 +73,18 @@
                             <% }); %>
                         </select>
                     </div>
-                    <% if (msg) { %>
-                    <div class="alert"><%= msg %></div>
-                    <% } %>
-                    <input type="submit" value="Update" class="submit-btn">
                 </div>
             </div>
+            <% if (msg) { %>
+            <div class="alert"><%= msg %></div>
+            <% } %>
+            <input type="submit" value="Update" class="submit-btn">
         </form>
     </div>
     <!--CKEditor-->
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+    <script src="/ckeditor/ckeditor.js"></script>
 
     <!--Custom Script-->
-    <script src="../../js/scripts.js"></script>
+    <script src="/js/scripts.js"></script>
 </body>
 </html>
