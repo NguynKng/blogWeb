@@ -9,7 +9,8 @@ const blogSchema = new mongoose.Schema({
     thumbnail: String,
     imageID: [{type: mongoose.Schema.Types.ObjectId, ref: "images"}]
 })
-
 const blogModel = new mongoose.model("blogs", blogSchema)
+
+
 
 module.exports = blogModel
